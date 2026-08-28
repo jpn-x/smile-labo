@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #060815;
+  --color-bg-soft: #0c1128;
+  --color-card: #10152e;
+  --color-cyan: #2de3ff;
+  --color-pink: #ff3ec8;
+  --color-purple: #b57bff;
+  --color-gold: #ffd166;
+  --color-ink: #eef1fb;
+  --color-muted: #93a0c2;
+  --color-line: rgba(255, 255, 255, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(60rem 40rem at 15% -10%, rgba(181, 123, 255, 0.16), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 0%, rgba(45, 227, 255, 0.12), transparent 55%),
+    var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-noto), "Noto Sans JP", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-mplus), var(--font-noto), sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.neon-text-cyan {
+  color: var(--color-cyan);
+  text-shadow: 0 0 6px rgba(45, 227, 255, 0.85), 0 0 26px rgba(45, 227, 255, 0.45);
+}
+.neon-text-pink {
+  color: var(--color-pink);
+  text-shadow: 0 0 6px rgba(255, 62, 200, 0.85), 0 0 26px rgba(255, 62, 200, 0.45);
+}
+.neon-outline {
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  box-shadow: 0 0 10px currentColor, inset 0 0 10px currentColor;
+}
+
+.neon-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--color-line);
+  border-radius: 22px;
+  backdrop-filter: blur(10px);
+}
+
+.glow-btn {
+  box-shadow: 0 0 18px rgba(255, 62, 200, 0.55), 0 0 42px rgba(181, 123, 255, 0.35);
+}
+.glow-btn:hover {
+  box-shadow: 0 0 26px rgba(255, 62, 200, 0.75), 0 0 60px rgba(181, 123, 255, 0.5);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+details.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+details.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+details.faq-item[open] .faq-caret {
+  transform: rotate(45deg);
+}
