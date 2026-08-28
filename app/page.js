@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmileMark from "@/components/SmileMark";
 import { benefits, faq } from "@/data/benefits";
 
 const COLOR_MAP = {
@@ -21,8 +22,9 @@ export default function Home() {
           <div className="wrap flex flex-col items-center text-center">
             <span className="chip mb-6">30〜40代のための、大人のコミュニティ</span>
 
-            <div className="relative mb-6 grid h-28 w-28 place-items-center rounded-full border-2 border-[var(--color-cyan)] text-6xl neon-text-cyan md:h-36 md:w-36 md:text-7xl">
-              ☺
+            <div className="relative mb-6">
+              <SmileMark size={120} className="md:hidden" />
+              <SmileMark size={150} className="hidden md:block" />
             </div>
 
             <h1 className="font-display text-4xl font-800 leading-tight tracking-tight md:text-6xl">

@@ -8,6 +8,7 @@
   --color-pink: #ff3ec8;
   --color-purple: #b57bff;
   --color-gold: #ffd166;
+  --color-yellow-neon: #fff04d;
   --color-ink: #eef1fb;
   --color-muted: #93a0c2;
   --color-line: rgba(255, 255, 255, 0.09);
@@ -66,6 +67,11 @@ a {
   border: 1px solid var(--color-line);
   border-radius: 22px;
   backdrop-filter: blur(10px);
+}
+
+.neon-smile {
+  filter: drop-shadow(0 0 4px var(--color-yellow-neon)) drop-shadow(0 0 14px var(--color-yellow-neon))
+    drop-shadow(0 0 30px rgba(255, 240, 77, 0.55));
 }
 
 .glow-btn {

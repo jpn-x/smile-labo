@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SmileMark from "@/components/SmileMark";
 
 const NAV_LINKS = [
   { href: "#about", label: "Smile Laboとは" },
@@ -16,9 +17,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#060815]/85 backdrop-blur">
       <div className="wrap flex h-[64px] items-center justify-between">
         <a href="#top" className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-[var(--color-cyan)] text-lg neon-text-cyan">
-            ☺
-          </span>
+          <SmileMark size={34} />
           <span className="font-display leading-tight">
             <span className="block text-base font-800 tracking-wide neon-text-pink">
               SMILE LABO
