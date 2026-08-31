@@ -17,9 +17,12 @@ const mplusRounded = M_PLUS_Rounded_1c({
 
 export const metadata = {
   title: "SMILE LABO by 信頼発電所｜30〜40代の大人のコミュニティ",
-  icons: { icon: "/favicon.svg" },
   description:
     "車・不動産・古民家民泊・陸送の実利特典と、株＆AI勉強会のDiscordコミュニティが1つになった、30〜40代のための会員制クラブ「SMILE LABO by 信頼発電所」。",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    title: "SMILE LABO",
+  },
   openGraph: {
     title: "SMILE LABO by 信頼発電所",
     description:
@@ -27,6 +30,10 @@ export const metadata = {
     locale: "ja_JP",
     type: "website",
   },
+};
+
+export const viewport = {
+  themeColor: "#060815",
 };
 
 export default function RootLayout({ children }) {
