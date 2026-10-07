@@ -1,21 +1,33 @@
 name: Deploy to Cloudflare
 
+# main への push = 本番(smile-labo.pages.dev)
+# プルリクエスト = 確認用URL(pr-<番号>.smile-labo.pages.dev)。本番には出ない
 on:
   push:
-    branches: [master, main]
+    branches: [main]
+  pull_request:
   workflow_dispatch:
+
+# 同じブランチの古い確認用の実行は止める。main(本番)は途中で止めない
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
   deploy:
+    # 他人(fork)のプルリクでは、鍵を使う deploy をしない
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -24,9 +36,15 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 035926d851c17dfd9cf096e0884cd474
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.number }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
             echo "::error::CLOUDFLARE_API_TOKEN not set - deploy was NOT performed. Set the repo secret."
             exit 1
           fi
-          npx wrangler@4 pages deploy ./out --project-name=smile-labo --branch=main --commit-dirty=true
+          BRANCH=main
+          if [ "$EVENT_NAME" = "pull_request" ]; then BRANCH="pr-$PR_NUMBER"; fi
+          npx wrangler@4 pages deploy ./out --project-name=smile-labo --branch="$BRANCH" --commit-dirty=true | tee deploy.log
+          URL=$(grep -Eo 'https://[a-z0-9.-]+\.smile-labo\.pages\.dev' deploy.log | tail -1)
+          echo "### Deployed ($BRANCH): $URL" >> "$GITHUB_STEP_SUMMARY"

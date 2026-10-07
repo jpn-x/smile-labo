@@ -1,0 +1,4 @@
+# 確認用(プレビュー)・履歴URL(<hash>.smile-labo.pages.dev / pr-N.smile-labo.pages.dev)は検索に出さない。
+# 本番の smile-labo.pages.dev はここに含まれない(検索対象のまま)。
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
