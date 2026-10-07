@@ -1,7 +1,7 @@
 name: Deploy to Cloudflare
 
-# main への push = 本番(smile-labo.pages.dev)
-# プルリクエスト = 確認用URL(pr-<番号>.smile-labo.pages.dev)。本番には出ない
+# main への push = 本番(https://smile-labo.jp-x.workers.dev)
+# プルリクエスト = 確認用URL(pr-<番号>-smile-labo.jp-x.workers.dev)。本番には出ない
 on:
   push:
     branches: [main]
@@ -43,8 +43,11 @@ jobs:
             echo "::error::CLOUDFLARE_API_TOKEN not set - deploy was NOT performed. Set the repo secret."
             exit 1
           fi
-          BRANCH=main
-          if [ "$EVENT_NAME" = "pull_request" ]; then BRANCH="pr-$PR_NUMBER"; fi
-          npx wrangler@4 pages deploy ./out --project-name=smile-labo --branch="$BRANCH" --commit-dirty=true | tee deploy.log
-          URL=$(grep -Eo 'https://[a-z0-9.-]+\.smile-labo\.pages\.dev' deploy.log | tail -1)
-          echo "### Deployed ($BRANCH): $URL" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            # 確認用: 新しい版をアップロードするだけ(本番は切り替わらない)
+            npx wrangler@4 versions upload --preview-alias "pr-$PR_NUMBER" | tee deploy.log
+          else
+            npx wrangler@4 deploy | tee deploy.log
+          fi
+          URL=$(grep -Eo 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | tail -1)
+          echo "### Deployed ($EVENT_NAME): $URL" >> "$GITHUB_STEP_SUMMARY"

@@ -1,4 +1,5 @@
-# 確認用(プレビュー)・履歴URL(<hash>.smile-labo.pages.dev / pr-N.smile-labo.pages.dev)は検索に出さない。
-# 本番の smile-labo.pages.dev はここに含まれない(検索対象のまま)。
-https://:version.:project.pages.dev/*
+# 本番(https://smile-labo.jp-x.workers.dev)は検索に出る。インデックスされるかの確認ができる。
+# 確認用・履歴URL(<名前>-smile-labo.jp-x.workers.dev / pr-N-smile-labo...)だけ検索に出さない。
+# ※ 本番ホスト(smile-labo.jp-x.workers.dev)は「-smile-labo」の前に文字が無いので、このルールに当たらない。
+https://*-smile-labo.jp-x.workers.dev/*
   X-Robots-Tag: noindex

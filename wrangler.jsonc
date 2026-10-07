@@ -1,0 +1,14 @@
+{
+  // SMILE LABO(個人開発サイト)。Next.js の静的書き出し(./out)を Workers の静的ファイルとして公開する。
+  // 公開URL: https://smile-labo.jp-x.workers.dev(2026-10-07 に Cloudflare Pages から移行)
+  "name": "smile-labo",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  // 確認用URL(pr-<番号>-smile-labo.jp-x.workers.dev)。検索に出さない設定は public/_headers
+  "preview_urls": true,
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}
